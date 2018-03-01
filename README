@@ -1,0 +1,55 @@
+iw-ptex: ingowald's modified version of PTex
+============================================
+
+This project is a clone of the original Ptex Version 2.1.33, with
+the (so far) following modifications/extension
+
+- added functionality to 'parse' ptex 'files' from memory: If the
+  filename passed to a PtexReader is of the form "mem://<%lx>/<%lx>",
+  then the first of the <%lx>'s is (hex-formatted) 64-bit pointer, and
+  the second one a (hex-formatted) 64-bit size. This allows for
+  reading ptex from memory that somebody else has allocated (e.g.,
+  form an ospray data array), as well as for using more than 1k ptex
+  files concurrently (because we no longer open file descriptors)
+
+- changed the PTexSeparableFilter to be thread save; i.e., a bilinear
+  ptexturefilter can now be used from multiple threads in parallel
+
+
+License
+-------
+
+This project has been cloned from Disney's original Ptex 2.1.33
+tarball, and that original project's license is thereby "inherited"
+into this project. Any _additions_ done by me are hereby declared as
+"free for all"; but if in doubt, check with the Disney lawyers....
+
+
+
+
+------------------------------------------------------------------
+Original ptex 2.1.33 README
+------------------------------------------------------------------
+Building with make (Linux):
+> make prefix=$PWD/install
+> make test
+> make install
+> make doc
+
+The Makefile uses cmake under the hood.
+
+This will build, install to a local 'install' directory, and
+run regression tests.
+
+Contents of install directory:
+install/bin:
+ptxinfo
+
+install/include:
+PtexHalf.h  PtexInt.h  Ptexture.h  PtexUtils.h
+
+install/lib:
+libPtex.a  libPtex.so
+
+Note: docs will be generated in the 'src/doc/ptex' directory
+and installed as 'install/share/doc/ptex'.
